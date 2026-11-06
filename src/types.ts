@@ -1,0 +1,60 @@
+export type Role = 'job-seeker' | 'recruiter' | 'admin';
+export type ApplicationStage = 'Applied' | 'Under Review' | 'In Review' | 'Shortlisted' | 'Interview Scheduled' | 'Interview Completed' | 'Selected' | 'Offer Sent' | 'Rejected' | 'Hired' | 'Withdrawn';
+
+export type Person = {
+  id: string;
+  displayName: string;
+  email: string;
+  role: Role;
+  phone?: string;
+  companyName?: string;
+  companyId?: string;
+  location?: string;
+  industry?: string;
+  headline?: string;
+  skills?: string[];
+  profileCompleted?: boolean;
+  profileCompletionPercentage?: number;
+  plan?: string;
+  subscriptionName?: string;
+  subscriptionStatus?: string;
+  subscriptionExpiresAt?: string;
+  lastLoginAt?: string;
+  totalJobsPosted?: number;
+  activeJobs?: number;
+  availableJobCredits?: number;
+  companyVerificationStatus?: string;
+  verificationReason?: string;
+  accountStatus?: 'active' | 'blocked';
+  blockReason?: string;
+  createdAt?: string;
+};
+
+export type Job = { id: string; title: string; company: string; location: string; postedBy: string; isHiringClosed?: boolean; moderationStatus?: 'active' | 'blocked'; blockReason?: string; createdAt?: string };
+export type Company = {
+  id: string;
+  ownerId?: string;
+  companyName?: string;
+  gstin?: string;
+  udyam?: string;
+  cin?: string;
+  llpin?: string;
+  otherRegistrationNumber?: string;
+  registrationType?: 'gstin' | 'udyam' | 'cin' | 'llpin' | 'other';
+  registrationNumber?: string;
+  otherRegistrationName?: string;
+  registrationNumbers?: Record<string, string>;
+  governmentIdType?: 'pan' | 'aadhaar' | 'voter_id' | 'driving_license' | 'passport' | 'other';
+  governmentIdNumber?: string;
+  verificationStatus?: string;
+  verificationReason?: string;
+  verificationSubmittedAt?: string;
+  verifiedAt?: string;
+  verificationHistory?: Array<{ status?: string; reason?: string | null; changedAt?: string; changedBy?: string }>;
+  updatedAt?: string;
+};
+export type Application = { id: string; uid: string; recruiterId: string; jobId: string; jobTitle: string; company: string; status: ApplicationStage; appliedOn?: string };
+export type Payment = { id: string; uid: string; planKey: string; amount: number; status: string; orderId?: string; paymentId?: string; provider?: string; currency?: string; createdAt?: string };
+export type EmployerVerificationRequest = { id: string; userId?: string; companyId?: string; status?: string; registrationType?: string; registrationNumber?: string; otherRegistrationName?: string; governmentIdType?: Company['governmentIdType']; governmentIdNumber?: string; submittedAt?: string; updatedAt?: string };
+
+export type CrmData = { people: Person[]; jobs: Job[]; applications: Application[]; payments: Payment[]; companies: Company[]; verificationRequests: EmployerVerificationRequest[] };
